@@ -365,6 +365,82 @@ Cash.prototype.hasClass = function ( this: Cash, cls: string ) {
 
 
 // @require core/cash.ts
+// @require core/get_split_values.ts
+// @require collection/each.ts
+
+interface Cash {
+  removeAttr ( attrs: string ): this;
+}
+
+Cash.prototype.removeAttr = function ( this: Cash, attr: string ) {
+
+  const attrs = getSplitValues ( attr );
+
+  if ( !attrs.length ) return this;
+
+  return this.each ( ( i, ele ) => {
+    each ( attrs, ( i, a ) => {
+      ele.removeAttribute ( a );
+    });
+  });
+
+};
+
+
+// @require core/cash.ts
+// @require core/type_checking.ts
+// @require collection/each.ts
+// @require ./remove_attr.ts
+
+interface Cash {
+  attr (): undefined;
+  attr ( attrs: string ): string | null;
+  attr ( attrs: string, value: string ): this;
+  attr ( attrs: plainObject ): this;
+}
+
+function attr ( this: Cash ): undefined;
+function attr ( this: Cash, attr: string ): string | null;
+function attr ( this: Cash, attr: string, value: string ): Cash;
+function attr ( this: Cash, attr: plainObject ): Cash;
+function attr ( this: Cash, attr?: string | plainObject, value?: string ) {
+
+  if ( !attr ) return;
+
+  if ( isString ( attr ) ) {
+
+    if ( arguments.length < 2 ) {
+
+      if ( !this[0] ) return;
+
+      const value = this[0].getAttribute ( attr );
+
+      return value === null ? undefined : value;
+
+    }
+
+    if ( value === undefined ) return this;
+
+    if ( value === null ) return this.removeAttr ( attr );
+
+    return this.each ( ( i, ele ) => { ele.setAttribute ( attr, value ) } );
+
+  }
+
+  for ( const key in attr ) {
+
+    this.attr ( key, attr[key] );
+
+  }
+
+  return this;
+
+}
+
+Cash.prototype.attr = attr;
+
+
+// @require core/cash.ts
 // @require core/each.ts
 // @require core/get_split_values.ts
 // @require collection/each.ts
@@ -1468,28 +1544,14 @@ Cash.prototype.before = function ( this: Cash ) {
 
 
 // @require core/cash.ts
-// @require events/off.ts
-// @require ./detach.ts
-
-interface Cash {
-  remove (): this;
-}
-
-Cash.prototype.remove = function ( this: Cash ) {
-  return this.detach ().off ();
-};
-
-
-// @require core/cash.ts
 // @require ./before.ts
-// @require ./remove.ts
 
 interface Cash {
   replaceWith ( selector: Selector ): this;
 }
 
 Cash.prototype.replaceWith = function ( this: Cash, selector: Selector ) {
-  return this.before ( selector ).remove ();
+  return this.before ( selector ).detach().off();
 };
 
 

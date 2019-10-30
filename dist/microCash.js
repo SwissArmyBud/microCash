@@ -207,6 +207,42 @@ Cash.prototype.hasClass = function (cls) {
   });
 };
 
+Cash.prototype.removeAttr = function (attr) {
+  var attrs = getSplitValues(attr);
+  if (!attrs.length) return this;
+  return this.each(function (i, ele) {
+    each(attrs, function (i, a) {
+      ele.removeAttribute(a);
+    });
+  });
+};
+
+function attr(attr, value) {
+  if (!attr) return;
+
+  if (isString(attr)) {
+    if (arguments.length < 2) {
+      if (!this[0]) return;
+      var value_1 = this[0].getAttribute(attr);
+      return value_1 === null ? undefined : value_1;
+    }
+
+    if (value === undefined) return this;
+    if (value === null) return this.removeAttr(attr);
+    return this.each(function (i, ele) {
+      ele.setAttribute(attr, value);
+    });
+  }
+
+  for (var key in attr) {
+    this.attr(key, attr[key]);
+  }
+
+  return this;
+}
+
+Cash.prototype.attr = attr;
+
 Cash.prototype.toggleClass = function (cls, force) {
   var classes = getSplitValues(cls),
       isForce = force !== undefined;
@@ -838,12 +874,8 @@ Cash.prototype.before = function () {
   return this;
 };
 
-Cash.prototype.remove = function () {
-  return this.detach().off();
-};
-
 Cash.prototype.replaceWith = function (selector) {
-  return this.before(selector).remove();
+  return this.before(selector).detach().off();
 };
 
 function text(text) {

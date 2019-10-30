@@ -91,6 +91,19 @@ interface Cash {
     hasClass(cls: string): boolean;
 }
 interface Cash {
+    removeAttr(attrs: string): this;
+}
+interface Cash {
+    attr(): undefined;
+    attr(attrs: string): string | null;
+    attr(attrs: string, value: string): this;
+    attr(attrs: plainObject): this;
+}
+declare function attr(this: Cash): undefined;
+declare function attr(this: Cash, attr: string): string | null;
+declare function attr(this: Cash, attr: string, value: string): Cash;
+declare function attr(this: Cash, attr: plainObject): Cash;
+interface Cash {
     toggleClass(classes: string, force?: boolean): this;
 }
 interface Cash {
@@ -227,9 +240,6 @@ interface Cash {
 }
 interface Cash {
     before(...selectors: Selector[]): this;
-}
-interface Cash {
-    remove(): this;
 }
 interface Cash {
     replaceWith(selector: Selector): this;

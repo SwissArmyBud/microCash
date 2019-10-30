@@ -1,67 +1,40 @@
 
 <p align="center">
-  <img src="./resources/logo/logo.png" alt="Cash Logo" width="400px">
+  <img src="./resources/logo/logo.png" alt="MicroCash" width="400px">
 </p>
 
-# Cash
+# MicroCash
 
-Cash is an absurdly small jQuery alternative for modern browsers (IE10+) that provides jQuery-style syntax for manipulating the DOM. Utilizing modern browser features to minimize the codebase, developers can use the familiar chainable methods at a fraction of the file size. 100% feature parity with jQuery isn't a goal, but Cash comes helpfully close, covering most day to day use cases.
+[Cash]((https://github.com/kenwheeler/cash) is an absurdly small jQuery alternative for modern browsers (IE10+) that provides jQuery-style syntax for manipulating the DOM. 100% feature parity with jQuery isn't a goal, but Cash comes helpfully close, covering most day to day use cases. MicroCash takes this a step farther - knocking another 30% off the file size of Cash. MicroCash does this by being super opinionated and ignoring parity with jQuery to focus entirely on core usability to developers and providing the smallest possible bundle size.
 
 ## Comparison
 
-| Size               | Cash        | Zepto 1.2.0 | jQuery 3.3.1 |
-| ------------------ | ----------- | ----------- | ------------ |
-| Uncompressed       | **32 KB**   | 58.7 KB     | 271 KB       |
-| Minified           | **14.5 KB** | 26 KB       | 87 KB        |
-| Minified & Gzipped | **5 KB**    | 9.8 KB      | 30.3 KB      |
+| Size               |    MicroCash  | Cash     | Zepto 1.2.0 | jQuery 3.3.1 |
+| ------------------ | ------------- | -------- | ----------- | ------------ |
+| Uncompressed       |  **26 KB**    |  32 KB   | 58.7 KB     | 271 KB       |
+| Minified           |  **10 KB**    |  14.5 KB | 26 KB       | 87 KB        |
+| Minified & Gzipped |  **3.8 KB**   |  5 KB    | 9.8 KB      | 30.3 KB      |
 
-An **85%** gain in size reduction compared to jQuery. If you need a smaller bundle, we support [partial builds](https://github.com/kenwheeler/cash/blob/master/docs/partial_builds.md) too.
+A **90%** gain in size reduction compared to jQuery. If you need a smaller bundle, you may have to rewrite Cash - most of the remaining functions depend on each other. Everything else is already gone...
 
-| Features                 | Cash                         | Zepto 1.2.0                    | jQuery 3.3.1             |
+| Features                 | Cash (& MicroCash)           | Zepto 1.2.0                    | jQuery 3.3.1             |
 | ------------------------ | ---------------------------- | ------------------------------ | ------------------------ |
-| Supports Modern Browsers | ✔                            | ️✔                             | ✔                        |
-| Actively Maintained      | ✔                            | ❌                              | ✔                        |
+| Supports Modern Browsers | ✔                            | ️✔                              | ✔                        |
+| Actively Maintained      | ✔                            | ❌                             | ✔                        |
 | Namespaced Events        | ✔                            | ️❌                             | ✔                        |
-| Modern Codebase          | ✔ (TypeScript)               | ️❌                             | ❌                        |
-| TypeScript Types         | ✔ (generated from code)      | ⚠️ (via DefinitelyTyped)       | ⚠️ (via DefinitelyTyped) |
-| Partial Builds           | ✔ (can exclude single files) | ⚠️ (can exclude whole modules) | ❌                        |
+| Modern Codebase          | ✔ (TypeScript)               | ❌                              | ❌                        |
+| TypeScript Types         | ✔ (generated from code)      | ⚠️ (via DefinitelyTyped)        | ⚠️ (via DefinitelyTyped) |
+| Partial Builds           | ✔ (can exclude single files) | ⚠️ (can exclude whole modules)  | ❌                        |
 
-If you're migrating from jQuery be sure to read our [migration guide](https://github.com/kenwheeler/cash/blob/master/docs/migration_guide.md).
+If you're migrating from jQuery be sure to read the [migration guide](https://github.com/swissarmybud/MicroCash/blob/master/docs/migration_guide.md).
 
 ## Usage
 
-Get Cash from [CloudFlare](https://cdnjs.cloudflare.com/ajax/libs/cash/4.1.5/cash.min.js) or [jsDelivr](https://cdn.jsdelivr.net/npm/cash-dom@4.1.5/dist/cash.min.js) and use it like this:
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cash/4.1.5/cash.min.js"></script>
-<script>
-  $(function () {
-    $('html').addClass ( 'dom-loaded' );
-    $('<footer>Appended with Cash</footer>').appendTo ( document.body );
-  });
-</script>
-```
-
-Cash is also available through [npm](http://npmjs.com) as the [`cash-dom`](https://www.npmjs.com/package/cash-dom) package:
-
-```sh
-npm install cash-dom --save-dev
-```
-
-That you can then use like this:
-
-```js
-import $ from "cash-dom";
-
-$(function () {
-  $('html').addClass ( 'dom-loaded' );
-  $('<footer>Appended with Cash</footer>').appendTo ( document.body );
-});
-```
+Download this repo, run `npm install` then run `npm run build:prod` in the root folder - and get your minimized bundle from the `/dist` folder.
 
 ## Documentation
 
-Cash gives you a query selector, [collection methods](#collection-methods) and some [library methods](#cash-methods). If you need more details about our API just check out [jQuery's](http://api.jquery.com), while we don't implement everything that jQuery provides, everything what we do implement should be compatible with jQuery. Cash can be extended with custom methods, read how [here](https://github.com/kenwheeler/cash/blob/master/docs/extending_cash.md).
+MicroCash gives you a query selector, [collection methods](#collection-methods) and some [library methods](#cash-methods). MicroCash can be extended with custom methods, read how [here](https://github.com/swissarmybud/MicroCash/blob/master/docs/extending_cash.md).
 
 ### $()
 
@@ -87,43 +60,33 @@ These methods from the collection prototype ([$.fn](#fn)) are available once you
 $(element).addClass ( className ) // => collection
 ```
 
-Some [extra methods](https://github.com/kenwheeler/cash/tree/master/src/extra) are available but [disabled](https://github.com/kenwheeler/cash/blob/master/pacco.json#L3) by default.
+A large number of additional functions are available in regular Cash, but [disabled](https://github.com/swissarmybud/MicroCash/blob/master/pacco.json#L3) in MicroCash. That's the whole point - but they can be enabled if desired.
 
-| Attributes                           | Collection                 | CSS                  | Data                   | Dimensions                           | Effects                    |
-| ------------------------------------ | -------------------------- | -------------------- | ---------------------- | ------------------------------------ | -------------------------- |
-| [fn.addClass ()](#fnaddclass-)       | [fn.add ()](#fnadd-)       | [fn.css ()](#fncss-) | [fn.data ()](#fndata-) | [fn.height ()](#fnheight-)           | [fn.hide ()](#fnhide-)     |
-| [fn.attr ()](#fnattr-)               | [fn.each ()](#fneach-)     |                      |                        | [fn.innerHeight ()](#fninnerheight-) | [fn.show ()](#fnshow-)     |
-| [fn.hasClass ()](#fnhasclass-)       | [fn.eq ()](#fneq-)         |                      |                        | [fn.innerWidth ()](#fninnerwidth-)   | [fn.toggle ()](#fntoggle-) |
-| [fn.prop ()](#fnprop-)               | [fn.filter ()](#fnfilter-) |                      |                        | [fn.outerHeight ()](#fnouterheight-) |                            |
-| [fn.removeAttr ()](#fnremoveattr-)   | [fn.first ()](#fnfirst-)   |                      |                        | [fn.outerWidth ()](#fnouterwidth-)   |                            |
-| [fn.removeClass ()](#fnremoveclass-) | [fn.get ()](#fnget-)       |                      |                        | [fn.width ()](#fnwidth-)             |                            |
-| [fn.removeProp ()](#fnremoveprop-)   | [fn.index ()](#fnindex-)   |                      |                        |                                      |                            |
-| [fn.toggleClass ()](#fntoggleclass-) | [fn.last ()](#fnlast-)     |                      |                        |                                      |                            |
-|                                      | [fn.map ()](#fnmap-)       |                      |                        |                                      |                            |
-|                                      | [fn.slice ()](#fnslice-)   |                      |                        |                                      |                            |
+| Attributes                           | Collection                 | CSS                  | Effects                    |
+| ------------------------------------ | -------------------------- | -------------------- | -------------------------- |
+| [fn.addClass ()](#fnaddclass-)       | [fn.add ()](#fnadd-)       | [fn.css ()](#fncss-) | [fn.hide ()](#fnhide-)     |
+| [fn.attr ()](#fnattr-)               | [fn.each ()](#fneach-)     |                      | [fn.show ()](#fnshow-)     |
+| [fn.hasClass ()](#fnhasclass-)       | [fn.filter ()](#fnfilter-) |                      | [fn.toggle ()](#fntoggle-) |
+| [fn.removeAttr ()](#fnremoveattr-)   | [fn.get ()](#fnget-)       |                      |                            |
+| [fn.removeClass ()](#fnremoveclass-) | [fn.slice ()](#fnslice-)   |                      |                            |
+| [fn.toggleClass ()](#fntoggleclass-) |                            |                      |                            |
 
-| Events                       | Forms                            | Manipulation                           | Offset                                 | Traversal                      |
-| ---------------------------- | -------------------------------- | -------------------------------------- | -------------------------------------- | ------------------------------ |
-| [fn.off ()](#fnoff-)         | [fn.serialize ()](#fnserialize-) | [fn.after ()](#fnafter-)               | [fn.offset ()](#fnoffset-)             | [fn.children ()](#fnchildren-) |
-| [fn.on ()](#fnon-)           | [fn.val ()](#fnval-)             | [fn.append ()](#fnappend-)             | [fn.offsetParent ()](#fnoffsetparent-) | [fn.closest ()](#fnclosest-)   |
-| [fn.one ()](#fnone-)         |                                  | [fn.appendTo ()](#fnappendto-)         | [fn.position ()](#fnposition-)         | [fn.contents ()](#fncontents-) |
-| [fn.ready ()](#fnready-)     |                                  | [fn.before ()](#fnbefore-)             |                                        | [fn.find ()](#fnfind-)         |
-| [fn.trigger ()](#fntrigger-) |                                  | [fn.clone ()](#fnclone-)               |                                        | [fn.has ()](#fnhas-)           |
-|                              |                                  | [fn.detach ()](#fndetach-)             |                                        | [fn.is ()](#fnis-)             |
-|                              |                                  | [fn.empty ()](#fnempty-)               |                                        | [fn.next ()](#fnnext-)         |
-|                              |                                  | [fn.html ()](#fnhtml-)                 |                                        | [fn.nextAll ()](#fnnextall-)   |
-|                              |                                  | [fn.insertAfter ()](#fninsertafter-)   |                                        | [fn.not ()](#fnnot-)           |
-|                              |                                  | [fn.insertBefore ()](#fninsertbefore-) |                                        | [fn.parent ()](#fnparent-)     |
-|                              |                                  | [fn.prepend ()](#fnprepend-)           |                                        | [fn.parents ()](#fnparents-)   |
-|                              |                                  | [fn.prependTo ()](#fnprependto-)       |                                        | [fn.prev ()](#fnprev-)         |
-|                              |                                  | [fn.remove ()](#fnremove-)             |                                        | [fn.prevAll ()](#fnprevall-)   |
-|                              |                                  | [fn.replaceAll ()](#fnreplaceall-)     |                                        | [fn.siblings ()](#fnsiblings-) |
-|                              |                                  | [fn.replaceWith ()](#fnreplacewith-)   |                                        |                                |
-|                              |                                  | [fn.text ()](#fntext-)                 |                                        |                                |
-|                              |                                  | [fn.unwrap ()](#fnunwrap-)             |                                        |                                |
-|                              |                                  | [fn.wrap ()](#fnwrap-)                 |                                        |                                |
-|                              |                                  | [fn.wrapAll ()](#fnwrapall-)           |                                        |                                |
-|                              |                                  | [fn.wrapInner ()](#fnwrapinner-)       |                                        |                                |
+
+| Events                       | Forms                            | Manipulation                           | Traversal                      |
+| ---------------------------- | -------------------------------- | -------------------------------------- | ------------------------------ |
+| [fn.off ()](#fnoff-)         | [fn.serialize ()](#fnserialize-) | [fn.after ()](#fnafter-)               | [fn.children ()](#fnchildren-) |
+| [fn.on ()](#fnon-)           | [fn.val ()](#fnval-)             | [fn.appendTo ()](#fnappendto-)         | [fn.find ()](#fnfind-)         |
+| [fn.ready ()](#fnready-)     |                                  | [fn.before ()](#fnbefore-)             | [fn.has ()](#fnhas-)           |
+| [fn.trigger ()](#fntrigger-) |                                  | [fn.detach ()](#fndetach-)             | [fn.is ()](#fnis-)             |
+|                              |                                  | [fn.empty ()](#fnempty-)               | [fn.next ()](#fnnext-)         |
+|                              |                                  | [fn.html ()](#fnhtml-)                 | [fn.not ()](#fnnot-)           |
+|                              |                                  | [fn.insertAfter ()](#fninsertafter-)   | [fn.parent ()](#fnparent-)     |
+|                              |                                  | [fn.insertBefore ()](#fninsertbefore-) | [fn.prev ()](#fnprev-)         |
+|                              |                                  | [fn.prependTo ()](#fnprependto-)       | [fn.siblings ()](#fnsiblings-) |
+|                              |                                  | [fn.remove ()](#fnremove-)             |                                |                                |
+|                              |                                  | [fn.replaceWith ()](#fnreplacewith-)   |                                |                                |
+|                              |                                  | [fn.text ()](#fntext-)                 |                                |                                |
+
 
 
 #### $.fn
@@ -164,16 +127,6 @@ Inserts content or elements after the collection.
 $(element).after ( element ) // => collection
 $(element).after ( htmlString ) // => collection
 $(element).after ( content [, content] ) // => collection
-```
-
-#### fn.append ()
-
-Appends content or elements to each element in the collection.
-
-```js
-$(element).append ( element ) // => collection
-$(element).append ( htmlString ) // => collection
-$(element).append ( content [, content] ) // => collection
 ```
 
 #### fn.appendTo ()
@@ -217,40 +170,6 @@ $(element).children () // => collection
 $(element).children ( selector ) // => collection
 ```
 
-#### fn.closest ()
-
-Returns the closest matching selector up the DOM tree.
-
-```js
-$(element).closest ( selector ) // => collection
-```
-
-#### fn.contents ()
-
-Get the children of each element in the set of matched elements, including text and comment nodes.
-
-Useful for selecting elements in friendly iframes.
-
-```js
-$('iframe').contents ().find ( '*' ) // => collection
-```
-
-#### fn.clone ()
-
-Returns a collection with cloned elements.
-
-```js
-$(element).clone () // => collection
-```
-
-#### fn.detach ()
-
-Removes collection elements from the DOM.
-
-```js
-$(element).detach () // => collection
-```
-
 #### fn.css ()
 
 Returns a CSS property value when just property is supplied.
@@ -265,23 +184,6 @@ Properties will be autoprefixed if needed for the user's browser.
 $(element).css ( property ) // => value
 $(element).css ( property, value ) // => collection
 $(element).css ( object ) // => collection
-```
-
-#### fn.data ()
-
-Without arguments, returns an object mapping all the `data-*` attributes to their values.
-
-With a `key`, return the value of the corresponding `data-*` attribute.
-
-With both a `key` and `value`, sets the value of the corresponding `data-*` attribute to `value`.
-
-Multiple data can be set when an object is supplied.
-
-```js
-$(element).data () // => object
-$(element).data ( key ) // => value
-$(element).data ( key, value ) // => collection
-$(element).data ( object ) // => collection
 ```
 
 #### fn.each ()
@@ -300,22 +202,6 @@ Empties the elements interior markup.
 $(element).empty () // => collection
 ```
 
-#### fn.eq ()
-
-Returns a collection with the element at index.
-
-```js
-$(element).eq ( index ) // => collection
-```
-
-#### fn.extend ()
-
-Adds properties to the Cash collection prototype.
-
-```js
-$.fn.extend ( object ) // => object
-```
-
 #### fn.filter ()
 
 Returns the collection that results from applying the filter selector/method.
@@ -323,22 +209,6 @@ Returns the collection that results from applying the filter selector/method.
 ```js
 $(element).filter ( selector ) // => collection
 $(element).filter ( function ( index, element ) {} ) // => collection
-```
-
-#### fn.find ()
-
-Returns selector match descendants from the first element in the collection.
-
-```js
-$(element).find ( selector ) // => collection
-```
-
-#### fn.first ()
-
-Returns a collection containing only the first element.
-
-```js
-$(element).first () // => collection
 ```
 
 #### fn.get ()
@@ -367,15 +237,6 @@ Returns the boolean result of checking if any element in the collection has the 
 $(element).hasClass ( className ) // => boolean
 ```
 
-#### fn.height ()
-
-Returns or sets the height of the element.
-
-```js
-$(element).height () // => Integer
-$(element).height ( number ) // => collection
-```
-
 #### fn.hide ()
 
 Hide the elements.
@@ -391,31 +252,6 @@ Returns the HTML text of the first element in the collection, sets the HTML if p
 ```js
 $(element).html () // => HTML Text
 $(element).html ( htmlString ) // => HTML Text
-```
-
-#### fn.index ()
-
-Returns the index of the element in its parent if an element or selector isn't provided. Returns index within element or selector if it is.
-
-```js
-$(element).index () // => Integer
-$(element).index ( element ) // => Integer
-```
-
-#### fn.innerHeight ()
-
-Returns the height of the element + padding.
-
-```js
-$(element).innerHeight () // => Integer
-```
-
-#### fn.innerWidth ()
-
-Returns the width of the element + padding.
-
-```js
-$(element).innerWidth () // => Integer
 ```
 
 #### fn.insertAfter ()
@@ -442,22 +278,6 @@ Returns whether the provided selector, element or collection matches any element
 $(element).is ( selector ) // => boolean
 ```
 
-#### fn.last ()
-
-Returns a collection containing only the last element.
-
-```js
-$(element).last () // => collection
-```
-
-#### fn.map ()
-
-Returns a new collection, mapping each element with `callback ( index, element )`.
-
-```js
-$(selector).map ( callback ) // => collection
-```
-
 #### fn.next ()
 
 Returns the next adjacent elements.
@@ -465,15 +285,6 @@ Returns the next adjacent elements.
 ```js
 $(element).next () // => collection
 $(element).next ( selector ) // => collection
-```
-
-#### fn.nextAll ()
-
-Returns all the next elements.
-
-```js
-$(element).nextAll () // => collection
-$(element).nextAll ( selector ) // => collection
 ```
 
 #### fn.not ()
@@ -499,22 +310,6 @@ $(element).off ( eventName ) // => collection
 $(element).off () // => collection
 ```
 
-#### fn.offset ()
-
-Get the coordinates of the first element in a collection relative to the document.
-
-```js
-$(element).offset () // => Object
-```
-
-#### fn.offsetParent ()
-
-Get the first element's ancestor that's positioned.
-
-```js
-$(element).offsetParent () // => collection
-```
-
 #### fn.on ()
 
 Adds event listener to collection elements.
@@ -528,37 +323,6 @@ $(element).on ( eventName, eventHandler ) // => collection
 $(element).on ( eventName, delegate, eventHandler ) // => collection
 ```
 
-#### fn.one ()
-
-Adds event listener to collection elements that only triggers once for each element.
-
-Accepts space-separated `eventName` for listening to multiple events.
-
-Event is delegated if delegate is supplied.
-
-```js
-$(element).one ( eventName, eventHandler ) // => collection
-$(element).one ( eventName, delegate, eventHandler ) // => collection
-```
-
-#### fn.outerHeight ()
-
-Returns the outer height of the element. Includes margins if `includeMargings` is set to true.
-
-```js
-$(element).outerHeight () // => Integer
-$(element).outerHeight ( includeMargins ) // => Integer
-```
-
-#### fn.outerWidth ()
-
-Returns the outer width of the element. Includes margins if `includeMargings` is set to true.
-
-```js
-$(element).outerWidth () // => Integer
-$(element).outerWidth ( includeMargins ) // => Integer
-```
-
 #### fn.parent ()
 
 Returns collection of elements who are parent of elements.
@@ -566,33 +330,6 @@ Returns collection of elements who are parent of elements.
 ```js
 $(element).parent () // => collection
 $(element).parent ( selector ) // => collection
-```
-
-#### fn.parents ()
-
-Returns collection of elements who are parents of elements. Optionally filtering by selector.
-
-```js
-$(element).parents () // => collection
-$(element).parents ( selector ) // => collection
-```
-
-#### fn.position ()
-
-Get the coordinates of the first element in a collection relative to its `offsetParent`.
-
-```js
-$(element).position () // => object
-```
-
-#### fn.prepend ()
-
-Prepends content or elements to the each element in collection.
-
-```js
-$(element).prepend ( element ) // => collection
-$(element).prepend ( htmlString ) // => collection
-$(element).prepend ( content [, content] ) // => collection
 ```
 
 #### fn.prependTo ()
@@ -612,27 +349,6 @@ $(element).prev () // => collection
 $(element).prev ( selector ) // => collection
 ```
 
-#### fn.prevAll ()
-
-Returns all the previous elements.
-
-```js
-$(element).prevAll () // => collection
-$(element).prevAll ( selector ) // => collection
-```
-
-#### fn.prop ()
-
-Returns a property value when just property is supplied.
-
-Sets a property when property and value are supplied, and sets multiple properties when an object is supplied.
-
-```js
-$(element).prop ( property ) // => property value
-$(element).prop ( property, value ) // => collection
-$(element).prop ( object ) // => collection
-```
-
 #### fn.ready ()
 
 Calls callback method on DOMContentLoaded.
@@ -647,14 +363,6 @@ Removes collection elements from the DOM and removes all their event listeners.
 
 ```js
 $(element).remove () // => collection
-```
-
-#### fn.replaceAll ()
-
-This is similar to [fn.replaceWith ()](#fnreplacewith-), but with the source and target reversed.
-
-```js
-$(element).replaceAll ( content ) // => collection
 ```
 
 #### fn.replaceWith ()
@@ -686,14 +394,6 @@ Providing no arguments will remove all classes.
 ```js
 $(element).removeClass () // => collection
 $(element).removeClass ( className ) // => collection
-```
-
-#### fn.removeProp ()
-
-Removes property from collection elements.
-
-```js
-$(element).removeProp ( propName ) // => collection
 ```
 
 #### fn.serialize ()
@@ -768,13 +468,6 @@ $(element).trigger ( eventName, data ) // => collection
 $(element).trigger ( eventObj, data ) // => collection
 ```
 
-#### fn.unwrap ()
-
-Removes the wrapper from all elements.
-
-```js
-$(element).unwrap () // => collection
-```
 
 #### fn.val ()
 
@@ -783,39 +476,6 @@ Returns an inputs value. If value is supplied, sets all inputs in collection's v
 ```js
 $(input).val () // => value
 $(input).val ( value ) // => collection
-```
-
-#### fn.width ()
-
-Returns or sets the width of the element.
-
-```js
-$(element).width () // => number
-$(element).width ( number ) // => collection
-```
-
-#### fn.wrap ()
-
-Wraps a structure around each element.
-
-```js
-$(element).wrap ( structure ) // => collection
-```
-
-#### fn.wrapAll ()
-
-Wraps a structure around all elements.
-
-```js
-$(element).wrapAll ( structure ) // => collection
-```
-
-#### fn.wrapInner ()
-
-Wraps a structure around all children.
-
-```js
-$(element).wrapInner ( structure ) // => collection
 ```
 
 ### Cash Methods
@@ -833,11 +493,11 @@ Some [extra methods](https://github.com/kenwheeler/cash/tree/master/src/extra) a
 | [$.isArray ()](#isarray-)       | [$.guid](#guid)                     |
 | [$.isFunction ()](#isfunction-) | [$.camelCase ()](#camelcase-)       |
 | [$.isNumeric ()](#isnumeric-)   | [$.each ()](#each-)                 |
-| [$.isString ()](#isstring-)     | [$.extend ()](#extend-)             |
-| [$.isWindow ()](#iswindow-)     | [$.matches ()](#matches-)           |
-|                                 | [$.parseHTML ()](#parsehtml-)       |
+| [$.isString ()](#isstring-)     | [$.matches ()](#matches-)           |
+| [$.isWindow ()](#iswindow-)     | [$.parseHTML ()](#parsehtml-)       |
 |                                 | [$.prefixedProp ()](#prefixedprop-) |
 |                                 | [$.unique ()](#unique-)             |
+
 
 #### $.guid
 
@@ -861,14 +521,6 @@ Iterates through an array and calls the `callback ( value, index, array )` metho
 
 ```js
 $.each ( array, callback ) // => undefined
-```
-
-#### $.extend ()
-
-Extends target object with properties from the source object.
-
-```js
-$.extend ( target, source ) // => object
 ```
 
 #### $.isArray ()
@@ -946,12 +598,12 @@ $.unique ( array ) // => array
 
 ## Contributing
 
-If you found a problem, or have a feature request, please open an [issue](https://github.com/kenwheeler/cash/issues) about it.
+If you found a problem, or have a feature request, please open an [issue](https://github.com/swissarmybud/MicroCash/issues) about it.
 
 If you want to make a pull request you should:
 
-1. Clone the repository: `git clone https://github.com/kenwheeler/cash.git`.
-2. Enter the cloned repository: `cd cash`
+1. Clone the repository: `git clone https://github.com/swissarmybud/MicroCash.git microcash`.
+2. Enter the cloned repository: `cd microcash`
 3. Install the dependencies: `npm install`.
 4. Automatically recompile Cash whenever a change is made: `npm run dev`.
 5. Automatically rerun the tests whenever a change is made: `npm run test:watch`.
@@ -961,7 +613,7 @@ If you want to make a pull request you should:
 
 - **[@hisk](https://github.com/hisk)** - The "design focused engineer" behind our awesome logo.
 - **[Sauce Labs](https://saucelabs.com)** - The cross-browser testing platform we use for testing our builds in all the supported environments.
-
+- **[Ken Wheeler](https://github.com/kenwheeler)** - The original author of Cash.js (includig most of this README)
 ## License
 
-MIT © Ken Wheeler
+MIT © Ken Wheeler, changes same - Andrew Porter
