@@ -5,7 +5,7 @@
 
 # MicroCash
 
-[Cash]((https://github.com/kenwheeler/cash) is an absurdly small jQuery alternative for modern browsers (IE10+) that provides jQuery-style syntax for manipulating the DOM. 100% feature parity with jQuery isn't a goal, but Cash comes helpfully close, covering most day to day use cases. MicroCash takes this a step farther - knocking another 30% off the file size of Cash. MicroCash does this by being super opinionated and ignoring parity with jQuery to focus entirely on core usability to developers and providing the smallest possible bundle size.
+[Cash](https://github.com/kenwheeler/cash) is an absurdly small jQuery alternative for modern browsers (IE10+) that provides jQuery-style syntax for manipulating the DOM. 100% feature parity with jQuery isn't a goal, but Cash comes helpfully close, covering most day to day use cases. MicroCash takes this a step farther - knocking another 30% off the file size of Cash. MicroCash does this by being super opinionated and ignoring parity with jQuery to focus entirely on core usability to developers and providing the smallest possible bundle size.
 
 ## Comparison
 
