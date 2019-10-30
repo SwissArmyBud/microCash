@@ -1,6 +1,5 @@
 
 // @require core/cash.ts
-// @require ./attr.ts
 // @require ./toggle_class.ts
 
 interface Cash {
@@ -8,5 +7,5 @@ interface Cash {
 }
 
 Cash.prototype.removeClass = function ( this: Cash, cls?: string ) {
-  return !arguments.length ? this.attr ( 'class', '' ) : this.toggleClass ( cls, false );
+  return !arguments.length ? this : this.toggleClass ( cls, false );
 };

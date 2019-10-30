@@ -1,6 +1,4 @@
 
-// @require ./eval_scripts.ts
-
 function insertElement ( anchor: Ele, child: Ele, prepend?: boolean, prependTarget?: Element ): void {
 
   if ( prepend ) {
@@ -12,7 +10,5 @@ function insertElement ( anchor: Ele, child: Ele, prepend?: boolean, prependTarg
     anchor.appendChild ( child );
 
   }
-
-  evalScripts ( child );
 
 }

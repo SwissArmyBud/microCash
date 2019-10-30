@@ -1,4 +1,4 @@
-/* MIT https://github.com/kenwheeler/cash */
+/* MIT https://github.com/swissarmybud/microCash */
 (function(){
 "use strict";
 
@@ -79,24 +79,6 @@ Cash.prototype.get = function (index) {
   return this[index < 0 ? index + this.length : index];
 };
 
-Cash.prototype.eq = function (index) {
-  return cash(this.get(index));
-};
-
-Cash.prototype.first = function () {
-  return this.eq(0);
-};
-
-Cash.prototype.last = function () {
-  return this.eq(-1);
-};
-
-Cash.prototype.map = function (callback) {
-  return cash(map.call(this, function (ele, i) {
-    return callback.call(ele, i, ele);
-  }));
-};
-
 Cash.prototype.slice = function () {
   return cash(slice.apply(this, arguments));
 }; // @require ./cash.ts
@@ -127,37 +109,6 @@ Cash.prototype.each = function (callback) {
   return this;
 };
 
-Cash.prototype.removeProp = function (prop) {
-  return this.each(function (i, ele) {
-    delete ele[prop];
-  });
-}; // @require ./cash.ts
-
-
-function extend(target) {
-  var objs = [];
-
-  for (var _i = 1; _i < arguments.length; _i++) {
-    objs[_i - 1] = arguments[_i];
-  }
-
-  var args = arguments,
-      length = args.length;
-
-  for (var i = length < 2 ? 0 : 1; i < length; i++) {
-    for (var key in args[i]) {
-      target[key] = args[i][key];
-    }
-  }
-
-  return target;
-}
-
-Cash.prototype.extend = function (plugins) {
-  return extend(cash.fn, plugins);
-};
-
-cash.extend = extend;
 cash.guid = 1; // @require ./cash.ts
 
 function matches(ele, selector) {
@@ -217,26 +168,8 @@ cash.isWindow = isWindow;
 cash.isFunction = isFunction;
 cash.isString = isString;
 cash.isNumeric = isNumeric;
-cash.isArray = isArray;
-
-Cash.prototype.prop = function (prop, value) {
-  if (!prop) return;
-
-  if (isString(prop)) {
-    if (arguments.length < 2) return this[0] && this[0][prop];
-    return this.each(function (i, ele) {
-      ele[prop] = value;
-    });
-  }
-
-  for (var key in prop) {
-    this.prop(key, prop[key]);
-  }
-
-  return this;
-}; // @require ./matches.ts
+cash.isArray = isArray; // @require ./matches.ts
 // @require ./type_checking.ts
-
 
 function getCompareFunction(comparator) {
   return isString(comparator) ? function (i, ele) {
@@ -274,42 +207,6 @@ Cash.prototype.hasClass = function (cls) {
   });
 };
 
-Cash.prototype.removeAttr = function (attr) {
-  var attrs = getSplitValues(attr);
-  if (!attrs.length) return this;
-  return this.each(function (i, ele) {
-    each(attrs, function (i, a) {
-      ele.removeAttribute(a);
-    });
-  });
-};
-
-function attr(attr, value) {
-  if (!attr) return;
-
-  if (isString(attr)) {
-    if (arguments.length < 2) {
-      if (!this[0]) return;
-      var value_1 = this[0].getAttribute(attr);
-      return value_1 === null ? undefined : value_1;
-    }
-
-    if (value === undefined) return this;
-    if (value === null) return this.removeAttr(attr);
-    return this.each(function (i, ele) {
-      ele.setAttribute(attr, value);
-    });
-  }
-
-  for (var key in attr) {
-    this.attr(key, attr[key]);
-  }
-
-  return this;
-}
-
-Cash.prototype.attr = attr;
-
 Cash.prototype.toggleClass = function (cls, force) {
   var classes = getSplitValues(cls),
       isForce = force !== undefined;
@@ -330,7 +227,7 @@ Cash.prototype.addClass = function (cls) {
 };
 
 Cash.prototype.removeClass = function (cls) {
-  return !arguments.length ? this.attr('class', '') : this.toggleClass(cls, false);
+  return !arguments.length ? this : this.toggleClass(cls, false);
 }; // @optional ./add_class.ts
 // @optional ./attr.ts
 // @optional ./has_class.ts
@@ -353,7 +250,17 @@ cash.unique = unique;
 
 Cash.prototype.add = function (selector, context) {
   return cash(unique(this.get().concat(cash(selector, context).get())));
-}; // @require core/type_checking.ts
+}; // @optional ./add.ts
+// @optional ./each.ts
+// @optional ./eq.ts
+// @optional ./filter.ts
+// @optional ./first.ts
+// @optional ./get.ts
+// @optional ./indexFn.ts
+// @optional ./last.ts
+// @optional ./map.ts
+// @optional ./slice.ts
+// @require core/type_checking.ts
 // @require core/variables.ts
 
 
@@ -483,78 +390,16 @@ function setData(ele, key, value) {
   }
 }
 
-var dataAttributeRe = /^data-(.+)/;
-
-function data(name, value) {
-  var _this = this;
-
-  if (!name) {
-    if (!this[0]) return;
-    var datas_1 = {};
-    each(this[0].attributes, function (i, attr) {
-      var match = attr.name.match(dataAttributeRe);
-      if (!match) return;
-      datas_1[match[1]] = _this.data(match[1]);
-    });
-    return datas_1;
-  }
-
-  if (isString(name)) {
-    if (value === undefined) return this[0] && getData(this[0], name);
-    return this.each(function (i, ele) {
-      return setData(ele, name, value);
-    });
-  }
-
-  for (var key in name) {
-    this.data(key, name[key]);
-  }
-
-  return this;
-}
-
-Cash.prototype.data = data; // @optional ./data.ts
+var dataAttributeRe = /^data-(.+)/; // @optional ./data.ts
 // @require css/helpers/compute_style_int.ts
 
 function getExtraSpace(ele, xAxis) {
   return computeStyleInt(ele, "border" + (xAxis ? 'Left' : 'Top') + "Width") + computeStyleInt(ele, "padding" + (xAxis ? 'Left' : 'Top')) + computeStyleInt(ele, "padding" + (xAxis ? 'Right' : 'Bottom')) + computeStyleInt(ele, "border" + (xAxis ? 'Right' : 'Bottom') + "Width");
-}
-
-each(['Width', 'Height'], function (i, prop) {
-  Cash.prototype["inner" + prop] = function () {
-    if (!this[0]) return;
-    if (isWindow(this[0])) return win["inner" + prop];
-    return this[0]["client" + prop];
-  };
-});
-each(['width', 'height'], function (index, prop) {
-  Cash.prototype[prop] = function (value) {
-    if (!this[0]) return value === undefined ? undefined : this;
-
-    if (!arguments.length) {
-      if (isWindow(this[0])) return this[0][camelCase("outer-" + prop)];
-      return this[0].getBoundingClientRect()[prop] - getExtraSpace(this[0], !index);
-    }
-
-    var valueNumber = parseInt(value, 10); //TSC
-
-    return this.each(function (i, ele) {
-      if (!isElement(ele)) return;
-      var boxSizing = computeStyle(ele, 'boxSizing');
-      ele.style[prop] = getSuffixedValue(prop, valueNumber + (boxSizing === 'border-box' ? getExtraSpace(ele, !index) : 0));
-    });
-  };
-});
-each(['Width', 'Height'], function (index, prop) {
-  Cash.prototype["outer" + prop] = function (includeMargins) {
-    if (!this[0]) return;
-    if (isWindow(this[0])) return win["outer" + prop];
-    return this[0]["offset" + prop] + (includeMargins ? computeStyleInt(this[0], "margin" + (!index ? 'Left' : 'Top')) + computeStyleInt(this[0], "margin" + (!index ? 'Right' : 'Bottom')) : 0);
-  };
-}); // @optional ./inner.ts
+} // @optional ./inner.ts
 // @optional ./normal.ts
 // @optional ./outer.ts
 // @require css/helpers/compute_style.ts
+
 
 var defaultDisplay = {};
 
@@ -764,13 +609,6 @@ function on(eventFullName, selector, callback, _one) {
 
 Cash.prototype.on = on;
 
-function one(eventFullName, selector, callback) {
-  return this.on(eventFullName, selector, callback, true); //TSC
-}
-
-;
-Cash.prototype.one = one;
-
 Cash.prototype.ready = function (callback) {
   var finalCallback = function finalCallback() {
     return callback(cash);
@@ -872,12 +710,6 @@ function val(value) {
 
 Cash.prototype.val = val;
 
-Cash.prototype.clone = function () {
-  return this.map(function (i, ele) {
-    return ele.cloneNode(true);
-  });
-};
-
 Cash.prototype.detach = function () {
   return this.each(function (i, ele) {
     if (ele.parentNode) {
@@ -930,121 +762,12 @@ Cash.prototype.empty = function () {
   });
 };
 
-function html(html) {
-  if (html === undefined) return this[0] && this[0].innerHTML;
-  return this.each(function (i, ele) {
-    ele.innerHTML = html;
-  });
-}
-
-Cash.prototype.html = html;
-
-Cash.prototype.remove = function () {
-  return this.detach().off();
-};
-
-function text(text) {
-  if (text === undefined) return this[0] ? this[0].textContent : '';
-  return this.each(function (i, ele) {
-    ele.textContent = text;
-  });
-}
-
-;
-Cash.prototype.text = text;
-
-Cash.prototype.unwrap = function () {
-  this.parent().each(function (i, ele) {
-    var $ele = cash(ele);
-    $ele.replaceWith($ele.children());
-  });
-  return this;
-}; // @require core/cash.ts
-// @require core/variables.ts
-
-
-var docEle = doc.documentElement;
-
-Cash.prototype.offset = function () {
-  var ele = this[0];
-  if (!ele) return;
-  var rect = ele.getBoundingClientRect();
-  return {
-    top: rect.top + win.pageYOffset - docEle.clientTop,
-    left: rect.left + win.pageXOffset - docEle.clientLeft
-  };
-};
-
-Cash.prototype.offsetParent = function () {
-  return cash(this[0] && this[0].offsetParent);
-};
-
-Cash.prototype.position = function () {
-  var ele = this[0];
-  if (!ele) return;
-  return {
-    left: ele.offsetLeft,
-    top: ele.offsetTop
-  };
-};
-
-Cash.prototype.children = function (comparator) {
-  var result = [];
-  this.each(function (i, ele) {
-    push.apply(result, ele.children);
-  });
-  return filtered(cash(unique(result)), comparator);
-};
-
-Cash.prototype.contents = function () {
-  var result = [];
-  this.each(function (i, ele) {
-    push.apply(result, ele.tagName === 'IFRAME' ? [ele.contentDocument] : ele.childNodes);
-  });
-  return cash(unique(result));
-};
-
-Cash.prototype.find = function (selector) {
-  var result = [];
-
-  for (var i = 0, l = this.length; i < l; i++) {
-    var found = find(selector, this[i]);
-
-    if (found.length) {
-      push.apply(result, found);
-    }
-  }
-
-  return cash(unique(result));
-}; // @require collection/filter.ts
-// @require traversal/find.ts
-
-
-var scriptTypeRe = /^$|^module$|\/(?:java|ecma)script/i,
-    HTMLCDATARe = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
-
-function evalScripts(node) {
-  var collection = cash(node);
-  collection.filter('script').add(collection.find('script')).each(function (i, ele) {
-    if (!ele.src && scriptTypeRe.test(ele.type)) {
-      // The script type is supported
-      if (ele.ownerDocument.documentElement.contains(ele)) {
-        // The element is attached to the DOM // Using `documentElement` for broader browser support
-        eval(ele.textContent.replace(HTMLCDATARe, ''));
-      }
-    }
-  });
-} // @require ./eval_scripts.ts
-
-
 function insertElement(anchor, child, prepend, prependTarget) {
   if (prepend) {
     anchor.insertBefore(child, prependTarget);
   } else {
     anchor.appendChild(child);
   }
-
-  evalScripts(child);
 } // @require core/each.ts
 // @require core/type_checking.ts
 // @require ./insert_element.ts
@@ -1058,19 +781,14 @@ function insertContent(parent, child, prepend) {
   });
 }
 
-Cash.prototype.append = function () {
-  var _this = this;
-
-  each(arguments, function (i, selector) {
-    insertContent(_this, cash(selector));
+function html(html) {
+  if (html === undefined) return this[0] && this[0].innerHTML;
+  return this.each(function (i, ele) {
+    ele.innerHTML = html;
   });
-  return this;
-};
+}
 
-Cash.prototype.appendTo = function (selector) {
-  insertContent(cash(selector), this);
-  return this;
-};
+Cash.prototype.html = html;
 
 Cash.prototype.insertAfter = function (selector) {
   var _this = this;
@@ -1120,59 +838,63 @@ Cash.prototype.before = function () {
   return this;
 };
 
-Cash.prototype.prepend = function () {
-  var _this = this;
-
-  each(arguments, function (i, selector) {
-    insertContent(_this, cash(selector), true);
-  });
-  return this;
-};
-
-Cash.prototype.prependTo = function (selector) {
-  insertContent(cash(selector), reverse.apply(this.slice()), true);
-  return this;
+Cash.prototype.remove = function () {
+  return this.detach().off();
 };
 
 Cash.prototype.replaceWith = function (selector) {
   return this.before(selector).remove();
 };
 
-Cash.prototype.replaceAll = function (selector) {
-  cash(selector).replaceWith(this);
-  return this;
+function text(text) {
+  if (text === undefined) return this[0] ? this[0].textContent : '';
+  return this.each(function (i, ele) {
+    ele.textContent = text;
+  });
+}
+
+;
+Cash.prototype.text = text;
+
+Cash.prototype.children = function (comparator) {
+  var result = [];
+  this.each(function (i, ele) {
+    push.apply(result, ele.children);
+  });
+  return filtered(cash(unique(result)), comparator);
 };
 
-Cash.prototype.wrapAll = function (selector) {
-  if (this[0]) {
-    var structure = cash(selector);
-    this.first().before(structure);
-    var wrapper = structure[0];
+Cash.prototype.find = function (selector) {
+  var result = [];
 
-    while (wrapper.children.length) {
-      wrapper = wrapper.firstElementChild;
+  for (var i = 0, l = this.length; i < l; i++) {
+    var found = find(selector, this[i]);
+
+    if (found.length) {
+      push.apply(result, found);
     }
-
-    this.appendTo(wrapper);
   }
 
-  return this;
-};
+  return cash(unique(result));
+}; // @require collection/filter.ts
+// @require traversal/find.ts
 
-Cash.prototype.wrap = function (selector) {
-  return this.each(function (index, ele) {
-    var wrapper = cash(selector)[0];
-    cash(ele).wrapAll(!index ? wrapper : wrapper.cloneNode(true));
-  });
-};
 
-Cash.prototype.wrapInner = function (selector) {
-  return this.each(function (i, ele) {
-    var $ele = cash(ele),
-        contents = $ele.contents();
-    contents.length ? contents.wrapAll(selector) : $ele.append(selector);
+var scriptTypeRe = /^$|^module$|\/(?:java|ecma)script/i,
+    HTMLCDATARe = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
+
+function evalScripts(node) {
+  var collection = cash(node);
+  collection.filter('script').add(collection.find('script')).each(function (i, ele) {
+    if (!ele.src && scriptTypeRe.test(ele.type)) {
+      // The script type is supported
+      if (ele.ownerDocument.documentElement.contains(ele)) {
+        // The element is attached to the DOM // Using `documentElement` for broader browser support
+        eval(ele.textContent.replace(HTMLCDATARe, ''));
+      }
+    }
   });
-};
+}
 
 Cash.prototype.has = function (selector) {
   var comparator = isString(selector) ? function (i, ele) {
@@ -1210,25 +932,12 @@ Cash.prototype.not = function (comparator) {
   });
 };
 
-Cash.prototype.parent = function (comparator) {
-  return filtered(cash(unique(pluck(this, 'parentNode'))), comparator);
-};
+Cash.prototype.parent = function (comparator, all) {
+  if (all === void 0) {
+    all = false;
+  }
 
-Cash.prototype.index = function (selector) {
-  var child = selector ? cash(selector)[0] : this[0],
-      collection = selector ? this : cash(child).parent().children();
-  return indexOf.call(collection, child);
-};
-
-Cash.prototype.closest = function (comparator) {
-  if (!comparator || !this[0]) return cash();
-  var filtered = this.filter(comparator);
-  if (filtered.length) return filtered;
-  return this.parent().closest(comparator);
-};
-
-Cash.prototype.parents = function (comparator) {
-  return filtered(cash(unique(pluck(this, 'parentElement', true))), comparator);
+  return filtered(cash(unique(pluck(this, 'parentNode', all))), comparator);
 };
 
 Cash.prototype.prev = function (comparator, _all) {

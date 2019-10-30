@@ -3,11 +3,40 @@
   "components": {
     "core/export_esm": false,
     "extra/get_script": false,
-    "extra/shorthands": false
+    "extra/shorthands": false,
+    "attributes/attr": false,
+    "attributes/prop": false,
+    "attributes/remove_attr": false,
+    "attributes/remove_prop": false,
+    "collection/eq": false,
+    "collection/first": false,
+    "collection/indexFn": false,
+    "collection/last": false,
+    "collection/map": false,
+    "core/extend": false,
+    "data/data": false,
+    "dimensions/inner": false,
+    "dimensions/normal": false,
+    "dimensions/outer": false,
+    "events/one": false,
+    "manipulation/append": false,
+    "manipulation/clone": false,
+    "manipulation/prepend": false,
+    "manipulation/replace_all": false,
+    "manipulation/unwrap": false,
+    "manipulation/wrap": false,
+    "manipulation/wrap_all": false,
+    "manipulation/wrap_inner": false,
+    "offset/offset": false,
+    "offset/offset_parent": false,
+    "offset/position": false,
+    "traversal/closest": false,
+    "traversal/contents": false,
+    "traversal/parents": false
   },
   "paths": {
     "tokens": {
-      "bundle": "cash"
+      "bundle": "microCash"
     },
     "output": {
       "javascript": {
@@ -24,8 +53,8 @@
     "wrapper": {
       "options": {
         "templates": {
-          "unminified": "/* MIT https://github.com/kenwheeler/cash */\n(function(){\n[content]\n})();",
-          "minified": "/* MIT https://github.com/kenwheeler/cash */\n(function(){\n[content]})();"
+          "unminified": "/* MIT https://github.com/swissarmybud/microCash */\n(function(){\n[content]\n})();",
+          "minified": "/* MIT https://github.com/swissarmybud/microCash */\n(function(){\n[content]})();"
         }
       }
     }
@@ -59,7 +88,7 @@
         "wrapper": {
           "options": {
             "templates": {
-              "unminified": "/* MIT https://github.com/kenwheeler/cash */\n[content]\n"
+              "unminified": "/* MIT https://github.com/swissarmybud/microCash */\n[content]\n"
             }
           }
         }
