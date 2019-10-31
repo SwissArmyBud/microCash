@@ -139,10 +139,6 @@ function isCash(x) {
   return x instanceof Cash;
 }
 
-function isWindow(x) {
-  return !!x && x === x.window;
-}
-
 function isDocument(x) {
   return !!x && x.nodeType === 9;
 }
@@ -164,7 +160,6 @@ function isNumeric(x) {
 }
 
 var isArray = Array.isArray;
-cash.isWindow = isWindow;
 cash.isFunction = isFunction;
 cash.isString = isString;
 cash.isNumeric = isNumeric;

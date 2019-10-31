@@ -66,7 +66,6 @@ interface CashStatic {
 }
 declare function pluck<T>(arr: ArrayLike<T>, prop: string, deep?: boolean): Array<T>;
 declare function isCash(x: any): x is Cash;
-declare function isWindow(x: any): x is Window;
 declare function isDocument(x: any): x is Document;
 declare function isElement(x: any): x is HTMLElement;
 declare function isFunction(x: any): x is Function;
@@ -74,7 +73,6 @@ declare function isString(x: any): x is string;
 declare function isNumeric(x: any): boolean;
 declare const isArray: (arg: any) => arg is any[];
 interface CashStatic {
-    isWindow(x: any): x is Window;
     isFunction(x: any): x is Function;
     isString(x: any): x is string;
     isNumeric(x: any): boolean;

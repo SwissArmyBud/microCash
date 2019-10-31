@@ -494,7 +494,7 @@ Some [extra methods](https://github.com/kenwheeler/cash/tree/master/src/extra) a
 | [$.isFunction ()](#isfunction-) | [$.camelCase ()](#camelcase-)       |
 | [$.isNumeric ()](#isnumeric-)   | [$.each ()](#each-)                 |
 | [$.isString ()](#isstring-)     | [$.matches ()](#matches-)           |
-| [$.isWindow ()](#iswindow-)     | [$.parseHTML ()](#parsehtml-)       |
+|                                 | [$.parseHTML ()](#parsehtml-)       |
 |                                 | [$.prefixedProp ()](#prefixedprop-) |
 |                                 | [$.unique ()](#unique-)             |
 
@@ -554,14 +554,6 @@ Check if the argument is a string.
 
 ```js
 $.isString ( 'hello' ) // => true
-```
-
-#### $.isWindow ()
-
-Check if the argument is a Window object.
-
-```js
-$.isWindow ( window ) // => true
 ```
 
 #### $.matches ()
